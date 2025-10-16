@@ -12,7 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
 const q=new URLSearchParams(location.search);
-const url=q.get('url')||"data:text/markdown;base64,SGVsbG8gKiogW1Rlc3RdKCkKCiMjIEhlbGxvCgpgYGBqcwpleHhwb3J0IGZ1bmN0aW9uIHgocykgeyByZXR1cm4gczsgfQpgYGAK";
+const url=q.get('url')||"";
 document.getElementById('img').src=url;
 Tesseract.recognize(url,'eng',{logger:m=>console.log(m)}).then(({data})=>{
   document.getElementById('result').textContent=(data.text||'').trim()||'(no text found)';
