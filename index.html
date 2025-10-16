@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Captcha Solver</title>
+<link rel="stylesheet" href="styles.css"/>
+<body><main>
+<h1>Captcha Solver</h1>
+<p>Pass image via <code>?url=</code>. If absent, a sample is used.</p>
+<img id="img" alt="captcha"/>
+<pre id="result">Solving…</pre>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script>
+const q=new URLSearchParams(location.search);
+const url=q.get('url')||"data:text/markdown;base64,SGVsbG8gKiogW1Rlc3RdKCkKCiMjIEhlbGxvCgpgYGBqcwpleHhwb3J0IGZ1bmN0aW9uIHgocykgeyByZXR1cm4gczsgfQpgYGAK";
+document.getElementById('img').src=url;
+Tesseract.recognize(url,'eng',{logger:m=>console.log(m)}).then(({data})=>{
+  document.getElementById('result').textContent=(data.text||'').trim()||'(no text found)';
+}).catch(e=>{document.getElementById('result').textContent='Error: '+e});
+</script></body></html>
